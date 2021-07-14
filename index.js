@@ -3,7 +3,7 @@ const countryRoute = require('./router/roure')
 const app = express();
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/To-Do', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+mongoose.connect('mongodb://localhost/Country', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
     .then(() => {
         console.log('MongoDBga ulanish hosil qilindi...');
     })
