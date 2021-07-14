@@ -1,15 +1,11 @@
 const { json } = require('body-parser');
-const { ToDo } = require('../../modul/modul')
+const { Country } = require('../../modul/modul')
 
-let toDoStorege = {
+let CountryStorage = {
     create: async(data) => {
-        const todo = new ToDo(data);
+        const country = new Country(data);
         try {
-            const res = await todo.save();
-            return json({
-                success: true,
-                message: "To-do created"
-            })
+            await country.save();
         } catch (error) {
             throw new Error(error.message);
         }
@@ -17,19 +13,17 @@ let toDoStorege = {
 
     update: async(id, data) => {
         try {
-            let todo = await ToDo.findOne({ _id: id });
+            let country = await Country.findOne({ _id: id });
 
-            if (!todo) {
+            if (!country) {
                 throw new Error("Not found in database");
             }
 
-            todo.name = data.name;
-            const res = await todo.save();
+            country.name = data.name;
+            country.country_code = data.country_code;
+            country.address = data.address
+            await country.save();
 
-            return json({
-                success: true,
-                message: "To-do updated"
-            });
         } catch (error) {
             throw new Error(error.message);
         }
@@ -37,13 +31,13 @@ let toDoStorege = {
 
     get: async(id) => {
         try {
-            let todo = await ToDo.findOne({ _id: id });
+            let country = await Country.findOne({ _id: id });
 
-            if (!todo) {
+            if (!country) {
                 throw new Error("Not found in database");
             }
 
-            return todo;
+            return country;
         } catch (error) {
             throw new Error(error.message);
         }
@@ -51,17 +45,13 @@ let toDoStorege = {
 
     delete: async(id) => {
         try {
-            let todo = await ToDo.findOne({ _id: id });
+            let country = await Country.findOne({ _id: id });
 
-            if (!todo) {
+            if (!country) {
                 throw new Error("Not found in database");
             }
 
-            await ToDo.findOneAndDelete({ _id: id });
-            return json({
-                success: true,
-                message: "To-do deleted"
-            });
+            await Country.findOneAndDelete({ _id: id });
         } catch (error) {
             throw new Error(error.message);
         }
@@ -69,7 +59,7 @@ let toDoStorege = {
 
     getAll: async() => {
         try {
-            const res = await ToDo.find();
+            const res = await Country.find();
             return res;
         } catch (error) {
             throw new Error(error.message);
@@ -77,4 +67,4 @@ let toDoStorege = {
     }
 };
 
-module.exports = toDoStorege;
+module.exports = CountryStorage;

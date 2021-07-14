@@ -1,5 +1,5 @@
 const express = require('express');
-const toDoRoute = require('./router/roure')
+const countryRoute = require('./router/roure')
 const app = express();
 const mongoose = require('mongoose');
 
@@ -13,7 +13,7 @@ mongoose.connect('mongodb://localhost/To-Do', { useNewUrlParser: true, useUnifie
 mongoose.set('useFindAndModify', false);
 
 app.use(express.json());
-app.use('/items', toDoRoute)
+app.use('/country', countryRoute)
 
 const port = process.env.PORT || 5000;
 

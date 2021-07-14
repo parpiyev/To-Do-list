@@ -1,12 +1,21 @@
 const mongoose = require('mongoose');
 
-const toDoSchema = new mongoose.Schema({
+const countrySchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
+    },
+    country_code: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    address: {
+        type: String,
     }
 });
 
-const Todo = mongoose.model('Todo', toDoSchema);
+const Country = mongoose.model('Country', countrySchema);
 
-exports.ToDo = Todo;
+exports.Country = Country;

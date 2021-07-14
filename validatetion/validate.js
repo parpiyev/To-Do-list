@@ -1,10 +1,12 @@
 const joi = require('joi');
 
-async function validateToDo(toDo) {
+async function validateCountry(country) {
     const schema = joi.object({
-        name: joi.string().required()
+        name: joi.string().required(),
+        country_code: joi.string().required(),
+        address: joi.string()
     });
-    return await schema.validateAsync(toDo);
+    return await schema.validateAsync(country);
 }
 
-exports.validate = validateToDo;
+exports.validate = validateCountry;

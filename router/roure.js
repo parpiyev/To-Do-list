@@ -1,20 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const toDoStorege = require('../storage/mongo/storage')
+const countryStorege = require('../storage/mongo/storage')
 const { validate } = require('../validatetion/validate');
 
 router.get('/', async(req, res) => {
-    const toDo = await toDoStorege.getAll();
-    res.json({ success: true, toDo });
+    const country = await countryStorege.getAll();
+    res.json({ success: true, country });
 });
 
 router.post('/create', async(req, res) => {
     try {
         await validate(req.body);
 
-        await toDoStorege.create(req.body);
+        await countryStorege.create(req.body);
 
-        res.status(201).json({ success: true, message: "To-Do created" });
+        res.status(201).json({ success: true, message: "Country created" });
     } catch (error) {
         res.status(400).json({ success: false, message: error.message });
     }
@@ -22,9 +22,9 @@ router.post('/create', async(req, res) => {
 
 router.get('/:id', async(req, res) => {
     try {
-        let toDo = await toDoStorege.get(req.params.id);
+        let country = await countryStorege.get(req.params.id);
 
-        res.json({ success: true, toDo });
+        res.json({ success: true, country });
     } catch (error) {
         res.status(404).json({ success: false, message: error.message });
     }
@@ -33,9 +33,9 @@ router.get('/:id', async(req, res) => {
 router.patch('/update/:id', async(req, res) => {
     try {
         await validate(req.body);
-        await toDoStorege.update(req.params.id, req.body);
+        await countryStorege.update(req.params.id, req.body);
 
-        res.status(200).json({ success: true, message: "To-Do updated" });
+        res.status(200).json({ success: true, message: "Country updated" });
     } catch (error) {
         res.status(404).json({ success: false, message: error.message });
     }
@@ -43,9 +43,9 @@ router.patch('/update/:id', async(req, res) => {
 
 router.delete('/delete/:id', async(req, res) => {
     try {
-        await toDoStorege.delete(req.params.id);
+        await countryStorege.delete(req.params.id);
 
-        res.status(200).json({ success: true, message: "To-Do deleted" });
+        res.status(200).json({ success: true, message: "Country deleted" });
     } catch (error) {
         res.status(404).json({ success: false, message: error.message });
     }
